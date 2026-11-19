@@ -1,0 +1,13 @@
+/_build/
+/cover/
+/deps/
+/doc/
+/tmp/
+erl_crash.dump
+*.ez
+ccs238-*.tar
+
+/.elixir_ls/
+.vscode/
+Thumbs.db
+Desktop.ini
