@@ -14,7 +14,15 @@
 
 ## How to run (SWI-Prolog on Windows)
 
-Install SWI-Prolog, open PowerShell or the VS Code terminal in this project folder, then load a program with one of these commands:
+On the prepared Windows setup, open PowerShell or the VS Code terminal at the repository root, activate the tools, and move into this folder:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\activate.ps1
+cd CCS238-Prolog
+```
+
+The activation applies to the current terminal only. Then load a program with one of these commands:
 
 ```powershell
 swipl -s prolog/family_relationships.pl
