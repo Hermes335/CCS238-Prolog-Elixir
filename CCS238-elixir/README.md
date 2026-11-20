@@ -15,7 +15,15 @@ Elixir versions of the three programs in [`../CCS238-Prolog/prolog/`](../CCS238-
 
 ## How to run (Windows)
 
-Install Erlang/OTP and Elixir (see <https://elixir-lang.org/install.html>). Mix comes with Elixir. Then from this folder:
+On the prepared Windows setup, open PowerShell or the VS Code terminal at the repository root, activate the tools, and move into this folder:
+
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\activate.ps1
+cd CCS238-elixir
+```
+
+The activation applies to the current terminal only. Mix comes with Elixir. Then run:
 
 ```powershell
 mix compile
