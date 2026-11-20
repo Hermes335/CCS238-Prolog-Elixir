@@ -16,23 +16,34 @@ This repository contains coursework for CCS238, exploring logic programming with
 - [SWI-Prolog](https://www.swi-prolog.org/) (or another Prolog interpreter)
 - [Elixir](https://elixir-lang.org/install.html) 1.14+
 
-## Getting Started
+## Run on Windows (PowerShell)
 
-Clone the repository:
+From the repository root, load the local tools into the current terminal:
 
-```bash
-git clone https://github.com/Hermes335/CCS238-Prolog-Elixir.git
-cd CCS238-Prolog-Elixir
+```powershell
+Set-ExecutionPolicy -Scope Process Bypass -Force
+.\activate.ps1
 ```
 
-Run Prolog files with:
+The execution policy change and activation apply only to that terminal. Run both commands again in each new PowerShell terminal.
 
-```bash
-swipl -s filename.pl
+Start a Prolog prompt with the family program loaded:
+
+```powershell
+swipl -s CCS238-Prolog/prolog/family_relationships.pl
 ```
 
-Run Elixir files with:
+At the `?-` prompt, try `parent(alice, Who).` and exit with `halt.`. The other programs are `maze_solver.pl` and `list_processing.pl` in the same folder.
 
-```bash
-elixir filename.exs
+Compile and test the Elixir Mix project:
+
+```powershell
+cd CCS238-elixir
+mix compile
+mix test
+iex.bat -S mix
 ```
+
+Use `iex.bat` in PowerShell because `iex` is a built-in alias. At the Elixir prompt, try `Enum.sum([1, 2, 3])`; press Ctrl+C twice to exit. The project modules are still coursework placeholders, so all 22 tests are currently skipped.
+
+The local SWI-Prolog executable is under `.local-tools/swipl`. Erlang/OTP and Elixir were installed by Elixir's official user-level installer under `%USERPROFILE%\.elixir-install`. See the project READMEs for more example queries and function calls.
