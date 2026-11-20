@@ -31,9 +31,9 @@ defmodule CCS238.FamilyRelationships do
   Prolog: `parent(alice, Who)`
   """
   @spec children(person()) :: [person()]
-  def children(_person) do
-    # TODO: match {^person, child} over @parent_facts
-    raise "not implemented"
+  def children(person) do
+    # ^person means use the value passed in, rather than bind a new variable.
+    for {^person, child} <- @parent_facts, do: child
   end
 
   @doc """
@@ -42,9 +42,8 @@ defmodule CCS238.FamilyRelationships do
   Prolog: `parent(Who, alice)`
   """
   @spec parents(person()) :: [person()]
-  def parents(_person) do
-    # TODO: same as children/1 but match on the child
-    raise "not implemented"
+  def parents(person) do
+    for {parent, ^person} <- @parent_facts, do: parent
   end
 
   @doc """
@@ -53,9 +52,9 @@ defmodule CCS238.FamilyRelationships do
   Prolog: `grandparent(alice, Who)`
   """
   @spec grandchildren(person()) :: [person()]
-  def grandchildren(_person) do
-    # TODO: children of each child, flattened into one list
-    raise "not implemented"
+  def grandchildren(person) do
+    # The second generator runs once for each child, like the two Prolog goals.
+    for child <- children(person), grandchild <- children(child), do: grandchild
   end
 
   @doc """
@@ -64,10 +63,9 @@ defmodule CCS238.FamilyRelationships do
   Prolog: `sibling(ethan, Who)`
   """
   @spec siblings(person()) :: [person()]
-  def siblings(_person) do
-    # TODO: children of each parent, minus person.
-    # Prolog returns a sibling once per shared parent, decide if we keep duplicates.
-    raise "not implemented"
+  def siblings(person) do
+    # Keep one result per shared parent, the same way Prolog can backtrack.
+    for parent <- parents(person), sibling <- children(parent), sibling != person, do: sibling
   end
 
   @doc """
@@ -76,8 +74,9 @@ defmodule CCS238.FamilyRelationships do
   Prolog: `ancestor(Who, fiona)`
   """
   @spec ancestors(person()) :: [person()]
-  def ancestors(_person) do
-    # TODO: parents ++ ancestors of each parent, [] when there are no parents
-    raise "not implemented"
+  def ancestors(person) do
+    direct = parents(person)
+    # Prolog tries the direct-parent clause first; recursion finds older generations.
+    direct ++ Enum.flat_map(direct, &ancestors/1)
   end
 end

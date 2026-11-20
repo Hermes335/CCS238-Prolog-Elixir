@@ -60,5 +60,5 @@ The family program uses a small example family, and the maze program uses a smal
 
 ## Tool versions
 
-- SWI-Prolog version: TODO
-- OS: TODO (Windows version)
+- SWI-Prolog version used here: 10.0.2
+- OS: Windows (PowerShell)

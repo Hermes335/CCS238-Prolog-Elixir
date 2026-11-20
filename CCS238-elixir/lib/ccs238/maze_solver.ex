@@ -30,9 +30,11 @@ defmodule CCS238.MazeSolver do
   Prolog: `adjacent/2`
   """
   @spec neighbors(location()) :: [location()]
-  def neighbors(_location) do
-    # TODO: forward edges first, then reversed ones (same order as adjacent/2)
-    raise "not implemented"
+  def neighbors(location) do
+    # These two passes follow the order of Prolog's two adjacent/2 clauses.
+    forward = for {^location, next} <- @edges, do: next
+    backward = for {next, ^location} <- @edges, do: next
+    forward ++ backward
   end
 
   @doc """
@@ -43,10 +45,11 @@ defmodule CCS238.MazeSolver do
   Prolog: `path(start, goal, Route)`
   """
   @spec find_path(location(), location()) :: {:ok, route()} | {:error, :no_path}
-  def find_path(_start, _goal) do
-    # TODO: DFS helper like path_visit/4 with a visited list.
-    # Goal clause first, then try unvisited neighbors until one works.
-    raise "not implemented"
+  def find_path(start, goal) do
+    case first_route(start, goal, [start]) do
+      nil -> {:error, :no_path}
+      route -> {:ok, route}
+    end
   end
 
   @doc """
@@ -56,8 +59,25 @@ defmodule CCS238.MazeSolver do
   its answers, so compare with `Enum.sort(all_paths(start, goal))`.
   """
   @spec all_paths(location(), location()) :: [route()]
-  def all_paths(_start, _goal) do
-    # TODO: same search as find_path/2 but collect every route
-    raise "not implemented"
+  def all_paths(start, goal) do
+    routes_from(start, goal, [start])
+  end
+
+  # Pattern matching handles the goal before we look at any more neighbors.
+  defp first_route(goal, goal, visited), do: Enum.reverse(visited)
+
+  defp first_route(current, goal, visited) do
+    # find_value stops at the first route; Prolog stops when we take its first answer.
+    Enum.find_value(neighbors(current), fn next ->
+      if next in visited, do: nil, else: first_route(next, goal, [next | visited])
+    end)
+  end
+
+  defp routes_from(goal, goal, visited), do: [Enum.reverse(visited)]
+
+  defp routes_from(current, goal, visited) do
+    # Each recursive branch has its own visited list so a route cannot loop.
+    for next <- neighbors(current), next not in visited,
+        route <- routes_from(next, goal, [next | visited]), do: route
   end
 end

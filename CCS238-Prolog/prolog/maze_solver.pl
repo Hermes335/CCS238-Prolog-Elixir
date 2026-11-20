@@ -3,7 +3,7 @@
 % Concept demonstrated: Backtracking and search termination.
 % Authors: Amolong / Chua
 % Date: 2026-11-19
-% SWI-Prolog version: TODO (record the installed version)
+% SWI-Prolog version used here: 10.0.2
 %
 % HOW TO RUN
 % From the CCS238-Prolog folder: swipl -s prolog/maze_solver.pl
@@ -29,10 +29,14 @@ path(Start, Goal, Route) :-
     path_visit(Start, Goal, [Start], ReverseRoute),
     reverse(ReverseRoute, Route).
 
+% When Current unifies with Goal, the route is complete. dif/2 below stops
+% Prolog from trying to continue this route after backtracking at the goal.
 path_visit(Goal, Goal, Visited, Visited).
 path_visit(Current, Goal, Visited, Route) :-
+    % adjacent/2 has two clauses, so backtracking checks edges both ways.
     adjacent(Current, Next),
     dif(Current, Goal),
+    % \+ means "not provable"; memberchk/2 blocks a location already visited.
     \+ memberchk(Next, Visited),
     path_visit(Next, Goal, [Next|Visited], Route).
 

@@ -44,6 +44,6 @@ mix test
 iex.bat -S mix
 ```
 
-Use `iex.bat` in PowerShell because `iex` is a built-in alias. At the Elixir prompt, try `Enum.sum([1, 2, 3])`; press Ctrl+C twice to exit. The project modules are still coursework placeholders, so all 22 tests are currently skipped.
+Use `iex.bat` in PowerShell because `iex` is a built-in alias. At the Elixir prompt, try `CCS238.FamilyRelationships.children(:alice)`; press Ctrl+C twice to exit. All 22 project tests now run and pass.
 
 The local SWI-Prolog executable is under `.local-tools/swipl`. Erlang/OTP and Elixir were installed by Elixir's official user-level installer under `%USERPROFILE%\.elixir-install`. See the project READMEs for more example queries and function calls.

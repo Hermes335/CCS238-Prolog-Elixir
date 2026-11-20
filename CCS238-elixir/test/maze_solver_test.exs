@@ -3,21 +3,15 @@ defmodule CCS238.MazeSolverTest do
 
   alias CCS238.MazeSolver
 
-  # Expected values worked out by hand from the edge/2 facts and clause order
-  # in maze_solver.pl.
-  # TODO: confirm with SWI-Prolog and add the cases from program-specs.md
+  # Expected values follow the edge/2 facts and clause order in maze_solver.pl.
 
   describe "neighbors/1 (Prolog: adjacent(c, Next))" do
-    @describetag skip: "not implemented"
-
     test "includes locations connected in either direction" do
       assert Enum.sort(MazeSolver.neighbors(:c)) == [:a, :b, :goal]
     end
   end
 
   describe "find_path/2 (Prolog: path(start, goal, Route))" do
-    @describetag skip: "not implemented"
-
     test "finds the same first route as Prolog" do
       # only holds if neighbors/1 uses the same order as adjacent/2
       assert MazeSolver.find_path(:start, :goal) == {:ok, [:start, :a, :c, :goal]}
@@ -33,8 +27,6 @@ defmodule CCS238.MazeSolverTest do
   end
 
   describe "all_paths/2 (Prolog: setof(Route, path(start, goal, Route), Routes))" do
-    @describetag skip: "not implemented"
-
     test "finds every route that never repeats a location" do
       expected = [
         [:start, :a, :c, :b, :goal],

@@ -56,7 +56,7 @@ CCS238.ListProcessing.double_numbers([1, 2, 3])
 mix test
 ```
 
-Each `describe` block is skipped until its function is implemented. Remove the `@describetag skip` line to turn it on.
+All 22 tests run and cover the three programs, including empty lists, negative numbers, and an unreachable maze goal.
 
 ## Prolog to Elixir
 
@@ -76,12 +76,12 @@ Each `describe` block is skipped until its function is implemented. Remove the `
 
 ## Programs
 
-- [ ] Family relationships: children, parents, grandchildren, siblings, ancestors
-- [ ] Maze solver: neighbors, first path, all paths
-- [ ] List processing: sum, even filter, doubling
+- [x] Family relationships: children, parents, grandchildren, siblings, ancestors
+- [x] Maze solver: neighbors, first path, all paths
+- [x] List processing: sum, even filter, doubling
 
 ## Tool versions
 
-- Elixir version: TODO
-- Erlang/OTP version: TODO
-- OS: TODO (Windows version)
+- Elixir version used here: 1.20.5
+- Erlang/OTP version used here: 29.1.2
+- OS: Windows (PowerShell)
